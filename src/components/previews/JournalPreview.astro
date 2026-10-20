@@ -1,0 +1,77 @@
+---
+import RingMark from './RingMark.astro';
+import RingField from './RingField.astro';
+import ReachMap from './ReachMap.astro';
+import '../../styles/preview.css';
+interface Props { variant: 'pilcrow' | 'astropaper' }
+const { variant } = Astro.props;
+const editorial = variant === 'pilcrow';
+const posts = [
+  { category: 'Essay', title: 'The world is bigger on foot.', summary: 'On the small things that disappear when you move too quickly.', body: 'A familiar route can still be full of things you have never noticed. This is a place for an essay about attention, distance, and the ways we come to know a place.' },
+  { category: 'Field note', title: 'A map is a way of paying attention.', summary: 'What gets a mark, what stays blank, and what we carry with us.', body: 'Every map makes a choice about what matters. A sound map, a map of shade, and a map of people you know would describe three very different versions of the same neighborhood.' },
+  { category: 'Experiment', title: 'One idea, a few widening circles.', summary: 'A small study of how something travels beyond its starting point.', body: 'A dot is a beginning. Rings make the distance from it visible. Here, they are a visual language for connections and possibility, rather than a claim about measured influence.' },
+];
+---
+<!doctype html>
+<html lang="en" data-direction={variant}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="description" content={`A ${editorial ? 'Pilcrow' : 'AstroPaper'}-inspired design preview for Saad Ansari's personal blog.`} />
+    <title>{editorial ? 'Pilcrow / Field journal' : 'AstroPaper / Field notebook'} — Saad Ansari</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <div class="preview-bar">
+      <span>DESIGN STUDY <span class="preview-note">/ sample writing</span></span>
+      <nav aria-label="Design directions">
+        <a href="/preview/pilcrow/" aria-current={editorial ? 'page' : undefined}>Pilcrow</a>
+        <a href="/preview/astropaper/" aria-current={!editorial ? 'page' : undefined}>AstroPaper</a>
+      </nav>
+    </div>
+    <div class="journal-shell">
+      <header class="site-header">
+        <a class="wordmark" href={Astro.url.pathname}><RingMark /><span>Saad Ansari<span class="wordmark-dot">.</span></span></a>
+        <nav aria-label="Main navigation"><a href="#writing">Writing</a><a href="#exhibits">Exhibits</a><a href="#about">About</a></nav>
+      </header>
+      <main id="main">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="hero-copy">
+            <div class="eyebrow"><span class="tiny-cross">+</span> {editorial ? 'A personal atlas' : 'FIELD NOTES / OPEN ENDED'}</div>
+            <h1 id="hero-title">A few notes<br />from the <em>world.</em></h1>
+            <p>Writing, experiments, and small exhibits about the things that catch my attention.</p>
+            <a class="text-link" href="#writing">Explore the notebook <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="hero-art"><RingField /></div>
+          <div class="hero-footnote"><span>OBSERVE · CONNECT · MAKE</span><span>A DOT. A RING. A WAY OUT.</span></div>
+        </section>
+        <section id="writing" class="writing-section" aria-labelledby="writing-title">
+          <div class="section-heading"><h2 id="writing-title">{editorial ? 'From the notebook' : 'Recent entries'}</h2><span>01 — 03</span></div>
+          <div class="entry-list">
+            {posts.map((post, i) => (
+              <details class="entry">
+                <summary>
+                  <span class="entry-meta"><span class="entry-index">0{i + 1}</span>{post.category}</span>
+                  <span class="entry-copy"><span class="entry-title">{post.title}</span><span class="entry-summary">{post.summary}</span></span>
+                  <span class="entry-arrow" aria-hidden="true">↗</span>
+                </summary>
+                <div class="entry-body"><span class="sample-label">Sample writing</span><p>{post.body}</p></div>
+              </details>
+            ))}
+          </div>
+        </section>
+        <section id="exhibits" class="exhibit-section" aria-labelledby="exhibit-heading">
+          <div class="exhibit-intro"><div class="eyebrow">A LITTLE EXHIBIT</div><h2 id="exhibit-heading">How far is <br /><em>nearby?</em></h2><p>A point on a map becomes a place when it connects to something. Move the radius and see the frame change.</p><span class="exhibit-caption">An interactive sketch, not geographic data.</span></div>
+          <ReachMap />
+        </section>
+        <section id="about" class="about-section"><RingMark /><div><h2>A place to think out loud.</h2><p>Personal notes and things in progress.<br />Sometimes an essay. Sometimes a small thing you can play with.</p></div><span class="about-label">ALWAYS IN THE MAKING</span></section>
+      </main>
+      <footer class="site-footer"><span>© {new Date().getFullYear()} Saad Ansari</span><span>Ideas have a way of getting around. <span aria-hidden="true">◎</span></span></footer>
+      <div class="direction-credit">{editorial ? 'Pilcrow-inspired editorial direction' : 'AstroPaper-inspired notebook direction'} · Original implementation · <a href="/">Current blog</a></div>
+    </div>
+  </body>
+</html>

@@ -39,3 +39,9 @@ The site is configured for https://saadhansari.com/. GitHub Pages uses GitHub Ac
 At GoDaddy, use four A records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`. The `www` CNAME should point to `saadhansari5.github.io`.
 After DNS resolves to GitHub and a certificate is issued, enable Enforce HTTPS in this repository's Pages settings.
 Keep this repository's Pages and DNS settings independent of other projects.
+
+## Design previews
+
+Two independent, original design studies live at `/preview/pilcrow/` and `/preview/astropaper/`. They explore the typography and layout of those themes with original geospatial and ring motifs. They share reusable preview components and styles. They are not installations of the upstream themes.
+
+The studies include clearly labeled sample writing and an illustrative interactive map. They are marked `noindex, nofollow`; the main blog and real writing routes remain separate. Choose a direction before applying its layout to the main blog.
