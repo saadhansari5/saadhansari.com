@@ -34,6 +34,8 @@ All committed post files are published; keep unfinished writing outside the publ
 
 ## Domain setup
 
-The initial deployment uses https://saadhansari5.github.io/saadhansari.com/.
-After connecting saadhansari.com in GitHub Pages and GoDaddy DNS, change the URL in `astro.config.mjs` to `https://saadhansari.com/` and rebuild.
+The site is configured for https://saadhansari.com/. GitHub Pages uses GitHub Actions as its publishing source and saadhansari.com as its custom domain.
+
+At GoDaddy, use four A records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`. The `www` CNAME should point to `saadhansari5.github.io`.
+After DNS resolves to GitHub and a certificate is issued, enable Enforce HTTPS in this repository's Pages settings.
 Keep this repository's Pages and DNS settings independent of other projects.
