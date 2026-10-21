@@ -1,17 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
-import type { MDXInstance } from 'astro';
-interface PostData { title: string; date?: string; description?: string }
-const modules = import.meta.glob<MDXInstance<PostData>>('./*.mdx', { eager: true });
-const posts = Object.values(modules).sort((a, b) =>
-  String(b.frontmatter.date ?? '').localeCompare(String(a.frontmatter.date ?? ''))
-);
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/posts';
+const posts = getPosts();
 ---
 <Base title="Writing — Saad Ansari">
-  <h1>Writing</h1>
-  {posts.length === 0 ? <p>No posts yet.</p> : (
-    <ul>
-      {posts.map((post) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
-    </ul>
-  )}
+  <header class="page-header"><h1>Writing</h1></header>
+  <PostList posts={posts} />
 </Base>

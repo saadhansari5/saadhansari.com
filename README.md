@@ -1,49 +1,39 @@
 # saadhansari.com
 
-Saad Ansari's personal blog, built with Astro and MDX and hosted on GitHub Pages.
-This is a standalone repository, independent of Partake. The initial pages intentionally use browser defaults; design comes later.
+Saad Ansari's personal blog, built with Astro and hosted on GitHub Pages. This is a standalone repository, independent of Partake.
 
-## Local development
+The accepted layout is a simple editorial blog with light/dark mode. Writing, Exhibits, and About are intentionally empty. Theme preference follows the system initially, then remembers a manual choice across pages and tabs.
 
-Requires Node.js 22.22+ (or a newer supported LTS).
+## Writing
+
+See [WRITING.md](WRITING.md) for the short writing and formatting guide. Use Markdown (`.md`) for ordinary posts and MDX (`.mdx`) when embedding interactive components.
+
+Create a local draft:
+
+```sh
+npm run new -- "Your post title"
+```
+
+This creates a blank Markdown file in `drafts/`. That folder is ignored by Git and excluded from the site. The repository itself is public, so keep unpublished work in this local drafts folder.
+
+When a post is ready, move its file to `src/pages/writing/`, build, and push to `main`. It appears in the writing index automatically. Images can go in `public/images/`; reusable visual components go in `src/components/`. A blank manual starter is in [templates/post.md](templates/post.md).
+
+## Development and publishing
+
+Requires Node.js 22.22+ or a newer supported LTS.
 
 ```sh
 npm ci
 npm run dev
+npm run build
 ```
 
-## Publish a post
+Pushes to `main` automatically build and publish through GitHub Actions. The live site is https://saadhansari.com/ and HTTPS enforcement is enabled.
 
-Add `src/pages/writing/my-post.mdx`:
+The shared site layout is `src/layouts/Base.astro`, post layout is `src/layouts/Post.astro`, and typography and theme tokens live in `src/styles/site.css`. Markdown and MDX posts share the same formatting. A `.wide` wrapper inside a post can hold an exhibit wider than the prose column.
 
-```mdx
----
-layout: ../../layouts/Post.astro
-title: My first post
-description: A short description of this post.
-date: '2026-10-20'
----
+The old design preview routes redirect to the main blog. Their sample content has been removed; prior designs remain in Git history.
 
-Write here using Markdown.
-```
+## Domain
 
-The post appears automatically in the writing index. Put reusable interactive components in `src/components/` and import them into MDX posts. Standalone exhibits can live in `src/pages/exhibits/`.
-
-Run `npm run build`, then commit and push to `main` to publish through GitHub Actions.
-All committed post files are published; keep unfinished writing outside the published pages directory.
-
-## Domain setup
-
-The site is configured for https://saadhansari.com/. GitHub Pages uses GitHub Actions as its publishing source and saadhansari.com as its custom domain.
-
-At GoDaddy, use four A records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`. The `www` CNAME should point to `saadhansari5.github.io`.
-After DNS resolves to GitHub and a certificate is issued, enable Enforce HTTPS in this repository's Pages settings.
-Keep this repository's Pages and DNS settings independent of other projects.
-
-## Design previews
-
-Two independent, original design studies live at `/preview/pilcrow/` and `/preview/astropaper/`. They explore the typography and layout of those themes using a simple shared structure. They share reusable preview components and styles. They are not installations of the upstream themes.
-
-Both support light and dark modes. They follow the system appearance initially and remember an explicit choice in localStorage under `saad-theme`. The preference carries between both previews and syncs across tabs. Ring and map decoration was removed after review.
-
-The studies include clearly labeled sample writing. They are marked `noindex, nofollow`; the main blog and real writing routes remain separate. Choose a direction before applying its layout to the main blog.
+GoDaddy A records for `@`: `185.199.108.153`, `185.199.109.153`, `185.199.110.153`, and `185.199.111.153`. The `www` CNAME points to `saadhansari5.github.io`. Keep this site's DNS and deployment independent of other projects.

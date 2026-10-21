@@ -7,5 +7,11 @@ export default defineConfig({
   site: url.origin,
   base: url.pathname,
   trailingSlash: 'always',
+  markdown: {
+    shikiConfig: {
+      themes: { light: 'github-light', dark: 'github-dark' },
+      defaultColor: false,
+    },
+  },
   integrations: [mdx()],
 });

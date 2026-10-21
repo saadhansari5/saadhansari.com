@@ -1,8 +1,20 @@
 ---
 import Base from '../layouts/Base.astro';
+import PostList from '../components/PostList.astro';
+import { getPosts } from '../lib/posts';
+const posts = getPosts().slice(0, 5);
 ---
 <Base>
-  <h1>Saad Ansari</h1>
-  <p>A personal blog. Writing and exhibits coming soon.</p>
-  <p><a href={`${import.meta.env.BASE_URL}writing/`}>Browse writing</a></p>
+  <section class="hero">
+    <h1>Notes & experiments.</h1>
+    <p>Personal writing and small interactive exhibits.</p>
+  </section>
+  <section class="home-section" aria-labelledby="writing-heading">
+    <div class="section-heading"><h2 id="writing-heading">Writing</h2><a href="/writing/">All writing →</a></div>
+    <PostList posts={posts} />
+  </section>
+  <section class="home-section" aria-labelledby="exhibits-heading">
+    <div class="section-heading"><h2 id="exhibits-heading">Exhibits</h2><a href="/exhibits/">View exhibits →</a></div>
+    <p class="empty-state">No exhibits yet.</p>
+  </section>
 </Base>

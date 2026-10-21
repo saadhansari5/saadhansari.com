@@ -1,0 +1,16 @@
+---
+import type { getPosts } from '../lib/posts';
+interface Props { posts: ReturnType<typeof getPosts> }
+const { posts } = Astro.props;
+---
+{posts.length === 0 ? <p class="empty-state">No posts yet.</p> : (
+  <ul class="post-list">
+    {posts.map(post => <li>
+      <a href={post.url}>
+        <span class="list-title">{post.title}</span>
+        {post.description && <span class="list-description">{post.description}</span>}
+        {post.date && <time datetime={String(post.date)}>{String(post.date).slice(0, 10)}</time>}
+      </a>
+    </li>)}
+  </ul>
+)}

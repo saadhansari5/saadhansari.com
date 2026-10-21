@@ -1,11 +1,15 @@
 ---
 import Base from './Base.astro';
 const { title, description, date } = Astro.props.frontmatter;
+const displayDate = date ? new Date(`${String(date).slice(0, 10)}T12:00:00Z`) : null;
 ---
 <Base title={`${title} — Saad Ansari`} description={description}>
-  <article>
-    <h1>{title}</h1>
-    {date && <p><time datetime={String(date)}>{String(date)}</time></p>}
-    <slot />
+  <article class="post">
+    <header class="post-header">
+      <a class="back-link" href={`${import.meta.env.BASE_URL}writing/`}>← Writing</a>
+      <h1>{title}</h1>
+      {displayDate && !Number.isNaN(displayDate.getTime()) && <p class="post-date"><time datetime={String(date).slice(0, 10)}>{displayDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'America/Los_Angeles' })}</time></p>}
+    </header>
+    <div class="prose"><slot /></div>
   </article>
 </Base>
