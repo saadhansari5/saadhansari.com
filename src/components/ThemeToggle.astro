@@ -1,0 +1,39 @@
+<button class="theme-toggle" type="button" aria-label="Switch color theme" hidden>
+  <svg class="theme-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.5 1.5m11 11L19 19M5 19l1.5-1.5m11-11L19 5" />
+  </svg>
+  <svg class="theme-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+    <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4 8.5 8.5 0 1 0 20 14.5Z" />
+  </svg>
+</button>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+  const system = window.matchMedia('(prefers-color-scheme: dark)');
+  let preference: string | null = null;
+  try { preference = localStorage.getItem('saad-theme'); } catch {}
+
+  function apply(theme: 'light' | 'dark') {
+    document.documentElement.dataset.theme = theme;
+    const label = theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+    toggle?.setAttribute('aria-label', label);
+    toggle?.setAttribute('title', label);
+  }
+
+  apply(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
+  if (toggle) toggle.hidden = false;
+  toggle?.addEventListener('click', () => {
+    const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+    preference = next;
+    apply(next);
+    try { localStorage.setItem('saad-theme', next); } catch {}
+  });
+  system.addEventListener('change', event => {
+    if (preference !== 'light' && preference !== 'dark') apply(event.matches ? 'dark' : 'light');
+  });
+  window.addEventListener('storage', event => {
+    if (event.key !== 'saad-theme' && event.key !== null) return;
+    preference = event.key === null ? null : event.newValue;
+    apply(preference === 'light' || preference === 'dark' ? preference : system.matches ? 'dark' : 'light');
+  });
+</script>

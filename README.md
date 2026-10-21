@@ -42,6 +42,8 @@ Keep this repository's Pages and DNS settings independent of other projects.
 
 ## Design previews
 
-Two independent, original design studies live at `/preview/pilcrow/` and `/preview/astropaper/`. They explore the typography and layout of those themes with original geospatial and ring motifs. They share reusable preview components and styles. They are not installations of the upstream themes.
+Two independent, original design studies live at `/preview/pilcrow/` and `/preview/astropaper/`. They explore the typography and layout of those themes using a simple shared structure. They share reusable preview components and styles. They are not installations of the upstream themes.
 
-The studies include clearly labeled sample writing and an illustrative interactive map. They are marked `noindex, nofollow`; the main blog and real writing routes remain separate. Choose a direction before applying its layout to the main blog.
+Both support light and dark modes. They follow the system appearance initially and remember an explicit choice in localStorage under `saad-theme`. The preference carries between both previews and syncs across tabs. Ring and map decoration was removed after review.
+
+The studies include clearly labeled sample writing. They are marked `noindex, nofollow`; the main blog and real writing routes remain separate. Choose a direction before applying its layout to the main blog.
